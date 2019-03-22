@@ -48,7 +48,7 @@ def BUSCA_BIN(A, k, comp):
         if A[mitad] == k:
             pos = mitad
             break
-        elif A[mitad] > k:
+        elif A[mitad] < k:
             inicio = mitad + 1
         else:
             final = mitad - 1

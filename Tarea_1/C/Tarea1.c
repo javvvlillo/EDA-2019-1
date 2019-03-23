@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <stdbool.h> 
 
-#define LENGHT 7
 #define TEST_COUNT 4
 
 int BUSCA_LIN(int *A,int k,bool comp);
 int BUSCA_BIN(int *A,int k,bool comp);
 void test();
 void menu();
+
+int LENGHT=0;
 
 int main()
 {
@@ -99,11 +100,10 @@ void menu(){
 }
 void test(){
 
-    int a_buscar[]={1,3,5,7};
+    int a_buscar[]={1,10,68,99};
     int contador;
     char ch;
     bool skip=false;
-    int array[LENGHT];
     char file_Name[20];
 
     for(int i = 1; i < TEST_COUNT+1; i++)
@@ -112,18 +112,25 @@ void test(){
         printf("%s",file_Name);
         FILE * file = fopen (file_Name, "r");
         contador=0;
-        printf ("  El contenido del arreglo es:");
-        while( (ch = getc(file)) != EOF) {
-            skip=false;
-            if (ch==13 || ch==10) {
-                skip=true;
-            }
-            if (!skip) {
-                int num = atoi(&ch);
-                array[contador]=num;
+        while ((ch = getc(file)) != EOF)
+        {
+            if (ch == '\n'){
                 contador++;
-                printf("%d",num);
             }
+        }
+        rewind(file);
+        LENGHT= contador+1;
+        int array[LENGHT];
+        printf("%d",LENGHT);
+        contador=0;
+        int num; 
+
+
+        printf ("  El contenido del arreglo es: ");
+        while( fscanf(file, "%d", &num)==1) {
+            array[contador]=num;
+            contador++;
+            printf("%d ",num);
         }
         printf("\n -------- BUSQUEDA LINEAL --------\n");
         for(size_t j = 0; j < TEST_COUNT; j++)
